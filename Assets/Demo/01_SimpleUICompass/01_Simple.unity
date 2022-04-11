@@ -272,6 +272,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 90
+  fadeOutOfRangeIcons: 1
+  fadeRange: 10
 --- !u!114 &181679828
 MonoBehaviour:
   m_ObjectHideFlags: 0

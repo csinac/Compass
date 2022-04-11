@@ -6,6 +6,11 @@ namespace RectangleTrainer.Compass.UI
 {
     public abstract class ACompass : MonoBehaviour
     {
+        [SerializeField] protected float range = 90;
+        [Space]
+        [SerializeField] protected bool fadeOutOfRangeIcons = false;
+        [SerializeField] protected float fadeRange = 5;
+
         protected static ACompass instance;
         protected Dictionary<int, ATrackableIcon> icons;
         
@@ -55,6 +60,25 @@ namespace RectangleTrainer.Compass.UI
         }
 
 
-        protected abstract void UpdateIconPosition(ATrackableIcon icon, float angles);
+        private void UpdateIconPosition(ATrackableIcon icon, float angles) {
+            float absAngle = Mathf.Abs(angles);
+            bool visible = absAngle < range / 2;
+
+            icon.Toggle(visible);
+            
+            if (visible) {
+                float compassPosition = GetIconPosition(angles);
+
+                if (fadeOutOfRangeIcons) {
+                    FadeIcon(absAngle, icon);
+                }
+                
+                PositionIcon(compassPosition, icon);
+            }
+        }
+
+        protected abstract float GetIconPosition(float angles);
+        protected abstract void FadeIcon(float absoluteAngle, ATrackableIcon icon);
+        protected abstract void PositionIcon(float xPos, ATrackableIcon icon);
     }
 }
