@@ -44,3 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7abcc3e5163945a4a952a6b19f9cbbef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  directionIconPF: {fileID: 7565816599995077892, guid: 1375f4f50786d1e4a8294bf3487bcf5f, type: 3}
+  directionCount: 1
+  offset: 0

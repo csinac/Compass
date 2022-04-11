@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using RectangleTrainer.Compass.World;
@@ -13,6 +14,7 @@ namespace RectangleTrainer.Compass.UI
 
         protected static ACompass instance;
         protected Dictionary<int, ATrackableIcon> icons;
+        protected List<ADirectionIcon> directionIcons;
         
         private void Awake() {
             if (instance && instance != this) {
@@ -21,6 +23,7 @@ namespace RectangleTrainer.Compass.UI
             }
 
             icons = new Dictionary<int, ATrackableIcon>();
+            directionIcons = new List<ADirectionIcon>();
             instance = this;
         }
 
@@ -47,6 +50,19 @@ namespace RectangleTrainer.Compass.UI
             }
         }
         
+        public static void AddCardinalDirection(ADirectionIcon iconPF, CardinalDirections.Direction info) {
+            if (instance == null)
+                return;
+
+            if (!instance.directionIcons.Contains(iconPF)) {
+                ADirectionIcon iconInstance = Instantiate(iconPF);
+                iconInstance.Initialize(info);
+                iconInstance.transform.SetParent(instance.transform);
+
+                instance.directionIcons.Add(iconInstance);
+            }
+        }
+
         public static void UpdateIcon(Trackable trackable, float angles, Vector3 delta) {
             if (instance == null)
                 return;
@@ -74,6 +90,17 @@ namespace RectangleTrainer.Compass.UI
                 }
                 
                 PositionIcon(compassPosition, icon);
+            }
+        }
+
+        protected virtual void Update() {
+            foreach (ADirectionIcon icon in directionIcons) {
+                float degrees = icon.Degrees - Tracker.Direction + North.Offset;
+
+                while (degrees >  180) degrees -= 360;
+                while (degrees < -180) degrees += 360;
+
+                instance.UpdateIconPosition(icon, degrees);
             }
         }
 

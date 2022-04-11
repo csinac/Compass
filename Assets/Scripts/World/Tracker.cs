@@ -6,7 +6,8 @@ namespace RectangleTrainer.Compass.World
     public class Tracker : MonoBehaviour
     {
         [SerializeField, HideInInspector] private List<Trackable> trackables;
-
+        public static float Direction => instance ? instance.transform.eulerAngles.y : 0;
+        
         private static Tracker instance;
         private readonly static float DEGREETORADIAN = Mathf.PI / 180;
 
