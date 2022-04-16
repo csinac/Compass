@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using RectangleTrainer.Compass.World;
+using Unity.VisualScripting;
 
 namespace RectangleTrainer.Compass.UI
 {
@@ -32,6 +33,11 @@ namespace RectangleTrainer.Compass.UI
                 return;
 
             if (!instance.icons.ContainsKey(trackable.GetInstanceID())) {
+                if (trackable.Icon == null) {
+                    Debug.LogWarning($"Trackable {trackable.name} doesn't have an icon. It will not be tracked on the compass.");
+                    return;
+                }
+    
                 ATrackableIcon iconInstance = Instantiate(trackable.Icon);
                 iconInstance.transform.SetParent(instance.transform);
                 instance.icons.Add(trackable.GetInstanceID(), iconInstance);
@@ -39,12 +45,18 @@ namespace RectangleTrainer.Compass.UI
         }
 
         public static void RemoveTrackable(Trackable trackable) {
-            if (instance == null)
+            if (trackable.Icon == null) {
+                Debug.LogWarning($"Trackable {trackable.name} doesn't have an icon. Ignoring 'RemoveTrackable'.");
                 return;
+            }
 
             if (instance.icons.ContainsKey(trackable.GetInstanceID())) {
+                if(trackable.Icon == null)
+                    return;
+
                 ATrackableIcon icon = instance.icons[trackable.GetInstanceID()];
-                Destroy(icon.gameObject);
+                if(icon)
+                    Destroy(icon.gameObject);
                 
                 instance.icons.Remove(trackable.GetInstanceID());
             }
@@ -66,7 +78,10 @@ namespace RectangleTrainer.Compass.UI
         public static void UpdateIcon(Trackable trackable, float angles, Vector3 delta) {
             if (instance == null)
                 return;
-            
+
+            if (!instance.icons.ContainsKey(trackable.GetInstanceID()))
+                return;
+
             ATrackableIcon icon = instance.icons[trackable.GetInstanceID()];
             if (icon == null)
                 return;

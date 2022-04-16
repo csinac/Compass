@@ -4,7 +4,7 @@ namespace RectangleTrainer.Compass.UI
 {
     public abstract class ATrackableIcon : MonoBehaviour
     {
-        protected virtual void Start() {
+        protected virtual void Awake() {
             Initialize();
         }
 

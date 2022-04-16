@@ -1,3 +1,4 @@
+using System;
 using RectangleTrainer.Compass.UI;
 using UnityEngine;
 
@@ -9,11 +10,23 @@ namespace RectangleTrainer.Compass.World
         public Vector3 Position => transform.position;
         public ATrackableIcon Icon => icon;
 
-        private void Start() {
+        protected virtual void Start() {
             Tracker.AddTrackable(this);
         }
 
-        private void OnDestroy() {
+        public void SetIconPF(ATrackableIcon icon) {
+            this.icon = icon;
+        }
+
+        protected virtual void OnEnable() {
+            //TODO: Tracker Show Icon
+        }
+
+        protected virtual void OnDisable() {
+            //TODO: Tracker Hide Icon
+        }
+
+        protected virtual void OnDestroy() {
             Tracker.RemoveTrackable(this);
         }
     }
