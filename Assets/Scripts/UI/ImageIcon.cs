@@ -3,28 +3,26 @@ using TMPro;
 
 namespace RectangleTrainer.Compass.UI
 {
-    public class DirectionIcon : ADirectionIcon
+    public class ImageIcon : ATrackableIcon
     {
-        [SerializeField] private TextMeshProUGUI text;
+        [SerializeField] protected TextMeshProUGUI distanceText;
+
         private RectTransform rt;
-        private RectTransform textRT;
-        
-        public override void Initialize(CardinalDirections.Direction dir) {
-            text.text = dir.Name;
-            degrees = dir.Degrees;
-        }
         
         protected override void Initialize() {
             rt = GetComponent<RectTransform>();
-            textRT = text.GetComponent<RectTransform>();
         }
-        
+
+        public override void UpdateDistance(float distance) {
+            distanceText.text = $"{distance:N0}m";
+        }
+
         public override void Toggle(bool state) {
             gameObject.SetActive(state);
         }
 
         public override void Scale(float scale) {
-            textRT.localScale = new Vector3(scale, scale, scale);
+            rt.localScale = new Vector3(scale, scale, scale);
         }
 
         public override void Translate(Vector3 position) {

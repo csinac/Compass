@@ -27,16 +27,16 @@ Material:
     m_Floats:
     - _ColorMask: 15
     - _CullMode: 0
-    - _FaceDilate: 0.25
+    - _FaceDilate: 0.5
     - _GradientScale: 10
     - _MaskSoftnessX: 0
     - _MaskSoftnessY: 0
     - _OutlineSoftness: 0
-    - _OutlineWidth: 0
+    - _OutlineWidth: 0.45
     - _PerspectiveFilter: 0.875
-    - _ScaleRatioA: 0.9
+    - _ScaleRatioA: 0.79120874
     - _ScaleRatioB: 1
-    - _ScaleRatioC: 0.50625
+    - _ScaleRatioC: 0.28125
     - _ScaleX: 1
     - _ScaleY: 1
     - _ShaderFlags: 0
@@ -72,7 +72,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: LiberationSans SDF
+  m_Name: LiberationSans SDF Outline
   m_EditorClassIdentifier: 
   hashCode: 231247347
   material: {fileID: 2180264}
