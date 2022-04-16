@@ -16,6 +16,7 @@ namespace RectangleTrainer.Compass.UI
         protected static ACompass instance;
         protected Dictionary<int, ATrackableIcon> icons;
         protected List<ADirectionIcon> directionIcons;
+        protected float halfRange;
         
         private void Awake() {
             if (instance && instance != this) {
@@ -23,6 +24,7 @@ namespace RectangleTrainer.Compass.UI
                 return;
             }
 
+            halfRange = range / 2;
             icons = new Dictionary<int, ATrackableIcon>();
             directionIcons = new List<ADirectionIcon>();
             instance = this;
@@ -86,21 +88,24 @@ namespace RectangleTrainer.Compass.UI
             if (icon == null)
                 return;
             
-            instance.UpdateIconPosition(icon, angles);
+            instance.UpdateIconPosition(icon, angles, trackable.IconPersistent);
             icon.UpdateDistance(delta.magnitude);
         }
 
 
-        private void UpdateIconPosition(ATrackableIcon icon, float angles) {
+        private void UpdateIconPosition(ATrackableIcon icon, float angles, bool persistent = false) {
+            if(persistent)
+                angles = Mathf.Clamp(angles, -halfRange, halfRange);
+
             float absAngle = Mathf.Abs(angles);
-            bool visible = absAngle < range / 2;
+            bool visible = persistent || absAngle < halfRange;
 
             icon.Toggle(visible);
             
             if (visible) {
                 float compassPosition = GetIconPosition(angles);
 
-                if (fadeOutOfRangeIcons) {
+                if (!persistent && fadeOutOfRangeIcons) {
                     FadeIcon(absAngle, icon);
                 }
                 
