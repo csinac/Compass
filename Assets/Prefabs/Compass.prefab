@@ -167,5 +167,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 90
+  distanceVisibilityRange: 15
   fadeOutOfRangeIcons: 1
   fadeRange: 10

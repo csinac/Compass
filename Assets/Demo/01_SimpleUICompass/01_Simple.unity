@@ -848,6 +848,10 @@ PrefabInstance:
       propertyPath: icon
       value: 
       objectReference: {fileID: 9020643789431204675, guid: 4e5863ac329b6024e9bb4cf4b5113f88, type: 3}
+    - target: {fileID: 4214834200801670335, guid: 2a860b5d7c97bfa479bda737a74d08e8, type: 3}
+      propertyPath: IconPersistent
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a860b5d7c97bfa479bda737a74d08e8, type: 3}
 --- !u!1001 &2771604152962212454

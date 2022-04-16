@@ -13,8 +13,10 @@ namespace RectangleTrainer.Compass.UI
             rt = GetComponent<RectTransform>();
         }
 
-        public override void UpdateDistance(float distance) {
-            distanceText.text = $"{distance:N0}m";
+        public override void UpdateDistance(float distance, bool visible) {
+            distanceText.gameObject.SetActive(visible);
+            if(visible)
+                distanceText.text = $"{distance:N0}m";
         }
 
         public override void Toggle(bool state) {

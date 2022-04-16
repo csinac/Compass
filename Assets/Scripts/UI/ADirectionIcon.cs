@@ -5,7 +5,7 @@ namespace RectangleTrainer.Compass.UI
         protected float degrees;
         public float Degrees => degrees;
         
-        public override void UpdateDistance(float distance) {}
+        public override void UpdateDistance(float distance, bool visible) {}
         public abstract void Initialize(CardinalDirections.Direction dir);
     }
 }

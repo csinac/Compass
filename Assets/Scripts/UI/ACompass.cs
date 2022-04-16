@@ -9,6 +9,7 @@ namespace RectangleTrainer.Compass.UI
     public abstract class ACompass : MonoBehaviour
     {
         [SerializeField] protected float range = 90;
+        [SerializeField] protected float distanceVisibilityRange = 20;
         [Space]
         [SerializeField] protected bool fadeOutOfRangeIcons = false;
         [SerializeField] protected float fadeRange = 5;
@@ -16,15 +17,13 @@ namespace RectangleTrainer.Compass.UI
         protected static ACompass instance;
         protected Dictionary<int, ATrackableIcon> icons;
         protected List<ADirectionIcon> directionIcons;
-        protected float halfRange;
-        
+
         private void Awake() {
             if (instance && instance != this) {
                 Destroy(this);
                 return;
             }
 
-            halfRange = range / 2;
             icons = new Dictionary<int, ATrackableIcon>();
             directionIcons = new List<ADirectionIcon>();
             instance = this;
@@ -89,11 +88,13 @@ namespace RectangleTrainer.Compass.UI
                 return;
             
             instance.UpdateIconPosition(icon, angles, trackable.IconPersistent);
-            icon.UpdateDistance(delta.magnitude);
+            icon.UpdateDistance(delta.magnitude, Mathf.Abs(angles) < instance.distanceVisibilityRange);
         }
 
 
         private void UpdateIconPosition(ATrackableIcon icon, float angles, bool persistent = false) {
+            float halfRange = range / 2;
+
             if(persistent)
                 angles = Mathf.Clamp(angles, -halfRange, halfRange);
 
