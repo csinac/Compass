@@ -26,8 +26,23 @@ namespace RectangleTrainer.Compass.World
         }
 
         private void Start() {
-            int stride = directionCount == DirectionCount.FourDirections ? 2 : 1;
+            int stride;
 
+            switch (directionCount) {
+                case DirectionCount.EightDirections:
+                    stride = 1;
+                    break;
+                case DirectionCount.FourDirections:
+                    stride = 2;
+                    break;
+                case DirectionCount.OnlyNorth:
+                    stride = 8;
+                    break;
+                default:
+                    stride = 2;
+                    break;
+            }
+            
             for (int i = 0; i < CardinalDirections.directions.Length; i += stride) {
                 ACompass.AddCardinalDirection(directionIconPF, CardinalDirections.directions[i]);
             }
@@ -35,6 +50,7 @@ namespace RectangleTrainer.Compass.World
 
         private enum DirectionCount
         {
+            OnlyNorth,
             FourDirections,
             EightDirections
         }

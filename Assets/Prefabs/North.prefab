@@ -45,5 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionIconPF: {fileID: 7565816599995077892, guid: 1375f4f50786d1e4a8294bf3487bcf5f, type: 3}
-  directionCount: 1
+  directionCount: 2
   offset: 0
+  hideGizmo: 0
