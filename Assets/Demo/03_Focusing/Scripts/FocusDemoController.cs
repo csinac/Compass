@@ -1,25 +1,29 @@
+using TMPro;
 using UnityEngine;
 
 namespace RectangleTrainer.Compass.Demo
 {
     public class FocusDemoController : MonoBehaviour
     {
-        [SerializeField] private TriggerTrackable trackablePF;
+        [SerializeField] private TriggerOnFocus trackablePF;
         [SerializeField] private int count = 10;
-        [SerializeField] private float radius = 5;
+        [SerializeField] private int range = 40;
+        [SerializeField] private TextMeshProUGUI triggerCountLabel;
         
-        private TriggerTrackable[] trackables;
+        private TriggerOnFocus[] trackables;
+        private int triggerCount = 0;
 
         private void Start() {
             float step = 2 * Mathf.PI / count;
-            trackables = new TriggerTrackable[count];
+            trackables = new TriggerOnFocus[count];
             
             for (int i = 0; i < count; i++) {
                 float angles = step * i;
                 
-                TriggerTrackable trackable = Instantiate(trackablePF);
-                trackable.transform.position = new Vector3(Mathf.Cos(angles) * radius, 1, Mathf.Sin(angles) * radius);
-                trackable.OnTrigger += HighlightNext;
+                TriggerOnFocus trackable = Instantiate(trackablePF);
+                trackable.transform.position = new Vector3(Random.Range(-40, 40), 1.5f, Random.Range(-40, 40));
+                trackable.OnCorrectTrigger += HighlightAndIncrement;
+                trackable.OnWrongTrigger += Decrement;
                 trackables[i] = trackable;
             }
             
@@ -31,7 +35,18 @@ namespace RectangleTrainer.Compass.Demo
             
             for (int i = 0; i < count; i++) {
                 trackables[i].Focused = next == i;
-            }            
+            }
+
+        }
+
+        private void HighlightAndIncrement() {
+            HighlightNext();
+            triggerCountLabel.text = (++triggerCount).ToString();
+        }
+
+        private void Decrement() {
+            triggerCount = Mathf.Max(--triggerCount, 0);
+            triggerCountLabel.text = triggerCount.ToString();
         }
     }
 }
