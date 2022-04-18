@@ -6,13 +6,8 @@ namespace RectangleTrainer.Compass.Inspector
     [CustomEditor(typeof(Trackable), true)]
     public class TrackableEditor : Editor
     {
-        private Trackable trackable;
         private SerializedProperty iconProperty;
         private Editor iconEditor;
-        
-        private void Awake() {
-            trackable = target as Trackable;
-        }
 
         private void OnEnable() {
             ResetIconEditor();
