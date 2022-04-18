@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 namespace RectangleTrainer.Compass.UI
@@ -6,6 +7,9 @@ namespace RectangleTrainer.Compass.UI
     public class ImageIcon : ATrackableIcon
     {
         [SerializeField] protected TextMeshProUGUI distanceText;
+        [SerializeField] private Image image;
+        [SerializeField] private Color highlightColor;
+        [SerializeField] private Color normalColor;
 
         private RectTransform rt;
         
@@ -29,6 +33,10 @@ namespace RectangleTrainer.Compass.UI
 
         public override void Translate(Vector3 position) {
             rt.anchoredPosition = position;
+        }
+
+        protected override void HighlightLogic(bool state) {
+            image.color = state ? highlightColor : normalColor;
         }
     }
 }

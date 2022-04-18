@@ -15,12 +15,12 @@ namespace RectangleTrainer.Compass.UI
             return angles / range * size;
         }
 
-        protected override void FadeIcon(float absoluteAngle, ATrackableIcon icon) {
+        protected override void FadeIcon(float absoluteAngle, ACompassElement icon) {
             float scale = Mathf.Clamp01((range/2 - absoluteAngle) / fadeRange);
             icon.Scale(scale);       
         }
 
-        protected override void PositionIcon(float xPos, ATrackableIcon icon) {
+        protected override void PositionIcon(float xPos, ACompassElement icon) {
             icon.Translate(new Vector3(xPos, 0, 0));
         }
     }

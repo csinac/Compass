@@ -2,16 +2,19 @@ using UnityEngine;
 
 namespace RectangleTrainer.Compass.UI
 {
-    public abstract class ATrackableIcon : MonoBehaviour
+    public abstract class ATrackableIcon : ACompassElement
     {
-        protected virtual void Awake() {
-            Initialize();
+        protected bool highlighted;
+        
+        public void Highlight(bool state) {
+            if (highlighted == state)
+                return;
+
+            highlighted = state;
+            HighlightLogic(state);
         }
 
-        protected abstract void Initialize();
         public abstract void UpdateDistance(float distance, bool visible);
-        public abstract void Toggle(bool state);
-        public abstract void Scale(float scale);
-        public abstract void Translate(Vector3 position);
+        protected abstract void HighlightLogic(bool state);
     }
 }

@@ -8,7 +8,7 @@ namespace RectangleTrainer.Compass.World
     {
         [SerializeField] private ATrackableIcon icon;
         public bool IconPersistent = false;
-        public bool IconFocused = false;
+        public bool Focused = false;
 
         public Vector3 Position => transform.position;
         public ATrackableIcon Icon => icon;

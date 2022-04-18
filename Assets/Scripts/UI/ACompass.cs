@@ -18,7 +18,7 @@ namespace RectangleTrainer.Compass.UI
         protected Dictionary<int, ATrackableIcon> icons;
         protected List<ADirectionIcon> directionIcons;
 
-        private void Awake() {
+        protected virtual void Awake() {
             if (instance && instance != this) {
                 Destroy(this);
                 return;
@@ -55,7 +55,7 @@ namespace RectangleTrainer.Compass.UI
                 if(trackable.Icon == null)
                     return;
 
-                ATrackableIcon icon = instance.icons[trackable.GetInstanceID()];
+                ACompassElement icon = instance.icons[trackable.GetInstanceID()];
                 if(icon)
                     Destroy(icon.gameObject);
                 
@@ -89,10 +89,11 @@ namespace RectangleTrainer.Compass.UI
             
             instance.UpdateIconPosition(icon, angles, trackable.IconPersistent);
             icon.UpdateDistance(delta.magnitude, Mathf.Abs(angles) < instance.distanceVisibilityRange);
+            icon.Highlight(trackable.Focused);
         }
 
 
-        private void UpdateIconPosition(ATrackableIcon icon, float angles, bool persistent = false) {
+        private void UpdateIconPosition(ACompassElement icon, float angles, bool persistent = false) {
             float halfRange = range / 2;
 
             if(persistent)
@@ -126,7 +127,7 @@ namespace RectangleTrainer.Compass.UI
         }
 
         protected abstract float GetIconPosition(float angles);
-        protected abstract void FadeIcon(float absoluteAngle, ATrackableIcon icon);
-        protected abstract void PositionIcon(float xPos, ATrackableIcon icon);
+        protected abstract void FadeIcon(float absoluteAngle, ACompassElement icon);
+        protected abstract void PositionIcon(float xPos, ACompassElement icon);
     }
 }
