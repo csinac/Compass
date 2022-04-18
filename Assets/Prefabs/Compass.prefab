@@ -170,3 +170,4 @@ MonoBehaviour:
   distanceVisibilityRange: 15
   fadeOutOfRangeIcons: 1
   fadeRange: 10
+  maxDistance: 1000

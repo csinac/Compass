@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using RectangleTrainer.Compass.World;
-using Unity.VisualScripting;
 
 namespace RectangleTrainer.Compass.UI
 {
@@ -13,6 +11,7 @@ namespace RectangleTrainer.Compass.UI
         [Space]
         [SerializeField] protected bool fadeOutOfRangeIcons = false;
         [SerializeField] protected float fadeRange = 5;
+        [SerializeField] protected float maxDistance = 1000;
 
         protected static ACompass instance;
         protected Dictionary<int, ATrackableIcon> icons;
@@ -86,21 +85,23 @@ namespace RectangleTrainer.Compass.UI
             ATrackableIcon icon = instance.icons[trackable.GetInstanceID()];
             if (icon == null)
                 return;
+
+            float distance = delta.magnitude;
             
-            instance.UpdateIconPosition(icon, angles, trackable.IconPersistent);
-            icon.UpdateDistance(delta.magnitude, Mathf.Abs(angles) < instance.distanceVisibilityRange);
+            instance.UpdateIconPosition(icon, angles, distance, trackable.IconPersistent);
+            icon.UpdateDistance(distance, Mathf.Abs(angles) < instance.distanceVisibilityRange);
             icon.Highlight(trackable.Focused);
         }
 
 
-        private void UpdateIconPosition(ACompassElement icon, float angles, bool persistent = false) {
+        private void UpdateIconPosition(ACompassElement icon, float angles, float distance, bool persistent) {
             float halfRange = range / 2;
 
             if(persistent)
                 angles = Mathf.Clamp(angles, -halfRange, halfRange);
 
             float absAngle = Mathf.Abs(angles);
-            bool visible = persistent || absAngle < halfRange;
+            bool visible = persistent || (distance < maxDistance && absAngle < halfRange);
 
             icon.Toggle(visible);
             
@@ -111,6 +112,8 @@ namespace RectangleTrainer.Compass.UI
             }
         }
 
+        private void UpdateDirectionIcon(ADirectionIcon icon, float angles) => UpdateIconPosition(icon, angles, -1, false);
+
         protected virtual void Update() {
             foreach (ADirectionIcon icon in directionIcons) {
                 float degrees = icon.Degrees - Tracker.Direction + North.Offset;
@@ -118,7 +121,7 @@ namespace RectangleTrainer.Compass.UI
                 while (degrees >  180) degrees -= 360;
                 while (degrees < -180) degrees += 360;
 
-                instance.UpdateIconPosition(icon, degrees);
+                instance.UpdateDirectionIcon(icon, degrees);
             }
         }
 
