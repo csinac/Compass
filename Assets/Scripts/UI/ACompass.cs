@@ -106,11 +106,7 @@ namespace RectangleTrainer.Compass.UI
             
             if (visible) {
                 float compassPosition = GetIconPosition(angles);
-
-                if (!persistent && fadeOutOfRangeIcons) {
-                    FadeIcon(absAngle, icon);
-                }
-                
+                FadeIcon(absAngle, icon, persistent);
                 PositionIcon(compassPosition, icon);
             }
         }
@@ -127,7 +123,7 @@ namespace RectangleTrainer.Compass.UI
         }
 
         protected abstract float GetIconPosition(float angles);
-        protected abstract void FadeIcon(float absoluteAngle, ACompassElement icon);
+        protected abstract void FadeIcon(float absoluteAngle, ACompassElement icon, bool forced);
         protected abstract void PositionIcon(float xPos, ACompassElement icon);
     }
 }
