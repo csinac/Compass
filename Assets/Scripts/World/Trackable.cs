@@ -7,8 +7,10 @@ namespace RectangleTrainer.Compass.World
     public class Trackable : MonoBehaviour
     {
         [SerializeField] private ATrackableIcon icon;
-        public bool IconPersistent = false;
+        [SerializeField] private bool iconPersistent = false;
+
         public bool Focused = false;
+        public bool IconPersistent => Focused || iconPersistent;
 
         public Vector3 Position => transform.position;
         public ATrackableIcon Icon => icon;

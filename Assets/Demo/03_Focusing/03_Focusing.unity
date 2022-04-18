@@ -250,8 +250,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackablePF: {fileID: 8275812590760081217, guid: cb3af8d66e7e68344b757e0b418612b7, type: 3}
-  count: 10
-  radius: 5
+  count: 8
+  radius: 8
 --- !u!4 &159729863
 Transform:
   m_ObjectHideFlags: 0
@@ -763,6 +763,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2752374528436189611, guid: 2b73ba4335869b74dafd2d243e1f5c78, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3039032893007765264, guid: 2b73ba4335869b74dafd2d243e1f5c78, type: 3}
+      propertyPath: directionCount
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3157343640886693949, guid: 2b73ba4335869b74dafd2d243e1f5c78, type: 3}
