@@ -12,5 +12,10 @@ namespace RectangleTrainer.Compass.UI
             base.Initialize();
             text.text = letter.ToString();
         }
+
+        protected override void HighlightLogic(bool state) {
+            base.HighlightLogic(state);
+            text.color = state ? highlightColor : normalColor;
+        }
     }
 }

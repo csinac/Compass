@@ -8,8 +8,8 @@ namespace RectangleTrainer.Compass.UI
     {
         [SerializeField] protected TextMeshProUGUI distanceText;
         [SerializeField] private Image image;
-        [SerializeField] private Color highlightColor;
-        [SerializeField] private Color normalColor;
+        [SerializeField] protected Color highlightColor = Color.white;
+        [SerializeField] protected Color normalColor = Color.green;
 
         private RectTransform rt;
         

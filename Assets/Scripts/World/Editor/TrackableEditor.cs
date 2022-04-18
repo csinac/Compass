@@ -3,7 +3,7 @@ using UnityEditor;
 
 namespace RectangleTrainer.Compass.Inspector
 {
-    [CustomEditor(typeof(Trackable))]
+    [CustomEditor(typeof(Trackable), true)]
     public class TrackableEditor : Editor
     {
         private Trackable trackable;
